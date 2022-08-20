@@ -1,0 +1,25 @@
+{
+  "name": "plugin-ice-stark",
+  "author":"liuiu666",
+  "version": "0.0.1",
+  "description": "@ice/stark微前端",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "father-build"
+  },
+  "keywords": [],
+  "repository": "https://github.com/hexagrams/plugin-ice-stark",
+  "authors": {
+    "name": "liuiu666",
+    "email": "798970799@qq.com"
+  },
+  "license": "MIT",
+  "files": [
+    "lib"
+  ],
+  "devDependencies": {
+    "@umijs/types": "^4.0.13",
+    "father-build": "^1.20.0"
+  }
+}
