@@ -8,7 +8,7 @@
   "scripts": {
     "build": "father-build"
   },
-  "keywords": [],
+  "keywords": ["plugin-ice-stark","微前端","umi","飞冰"],
   "repository": "https://github.com/hexagrams/plugin-ice-stark",
   "authors": {
     "name": "liuiu666",
