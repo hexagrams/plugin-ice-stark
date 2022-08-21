@@ -23,25 +23,36 @@ ICESTARK: https://micro-frontends.ice.work/
 $ npm i @hexagrams/plugin-ice-stark -S
 ```
 
-## Usage
+## 父应用加配置项
 
 Configure in `.umirc.js`,
 
 ```js
 export default {
-  plugins: [["@hexagrams/plugin-ice-stark"]],
-  // 子应用配置加iceStark:{ slave: {}} 配置
-  iceStark: {
-    slave: {},
-  },
-  // 父应用配置 加 iceStark:{master: {}} 配置
+  plugins: ["@hexagrams/plugin-ice-stark"],
   iceStark: {
     master: {},
+  },
   },
 };
 ```
 
-## 动态配置 src/app.ts
+## 子应用加配置项
+
+Configure in `.umirc.js`,
+
+```js
+export default {
+  plugins: ["@hexagrams/plugin-ice-stark"],
+  iceStark: {
+    slave: {},
+  },
+};
+```
+
+## 父应用动态配置
+
+Configure in `src/app.ts`,
 
 ```js
 // 文档 https://micro-frontends.ice.work/docs/api/ice-stark
