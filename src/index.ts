@@ -1,4 +1,4 @@
-import { join, dirname } from 'path';
+import { join } from 'path';
 import { readFileSync } from 'fs';
 import { IApi, utils } from 'umi';
 
@@ -42,17 +42,25 @@ export default (api: IApi) => {
       const masterHistoryType = config?.history && config?.history?.type;
       api.writeTmpFile({
         path: `${PLGGIN_NAME}/father.tsx`,
-        content: utils.Mustache.render(readFileSync(join(__dirname, 'father.tsx.tpl'), 'utf-8'), {
-          hashType: masterHistoryType === 'hash',
-        }),
+        content: utils.Mustache.render(
+          readFileSync(join(__dirname, 'father.tsx.tpl'), 'utf-8'),
+          {
+            hashType: masterHistoryType,
+          },
+        ),
       });
       api.writeTmpFile({
         path: `${PLGGIN_NAME}/fatherRuntime.ts`,
-        content: utils.Mustache.render(readFileSync(join(__dirname, 'fatherRuntime.ts.tpl'), 'utf-8'), {}),
+        content: utils.Mustache.render(
+          readFileSync(join(__dirname, 'fatherRuntime.ts.tpl'), 'utf-8'),
+          {
+            masterCfg: JSON.stringify(api.userConfig?.iceStark?.master || {}),
+          },
+        ),
       });
     });
   } else if (isSlaveEnable(api)) {
-    api.modifyDefaultConfig((memo) => {
+    api.modifyDefaultConfig(memo => {
       return {
         ...memo,
         runtimePublicPath: true,
@@ -63,7 +71,10 @@ export default (api: IApi) => {
     api.onGenerateFiles(() => {
       api.writeTmpFile({
         path: `${PLGGIN_NAME}/childrenRuntime.ts`,
-        content: utils.Mustache.render(readFileSync(join(__dirname, 'childrenRuntime.ts.tpl'), 'utf-8'), {}),
+        content: utils.Mustache.render(
+          readFileSync(join(__dirname, 'childrenRuntime.ts.tpl'), 'utf-8'),
+          {},
+        ),
       });
     });
   }

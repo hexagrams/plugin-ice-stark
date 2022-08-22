@@ -7,11 +7,12 @@ import {
 } from '@ice/stark-app';
 import ReactDOM from 'react-dom';
 
+
 window['routerBase'] = getBasename();
 
-registerAppEnter((props) => {
+registerAppEnter(props => {
   setCreateHistoryOptions({
-    type: props.customProps.hashType ? 'hash' : 'browser',
+    type: props.customProps.hashType,
   });
 });
 

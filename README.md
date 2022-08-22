@@ -3,8 +3,9 @@
 [![NPM version](https://img.shields.io/npm/v/plugin-ice-stark.svg?style=flat)](https://www.npmjs.com/package/@hexagrams/plugin-ice-stark)
 [![NPM downloads](http://img.shields.io/npm/dm/plugin-ice-stark.svg?style=flat)](https://www.npmjs.com/package/@hexagrams/plugin-ice-stark)
 
-UmiJS 微前端插件: https://umijs.org/
-ICESTARK: https://micro-frontends.ice.work/
+UmiJS：[Umi](https://umijs.org/)
+飞冰：[ICESTARK](https://micro-frontends.ice.work/)
+DEMO：[个人站](https://linshenglong.cn/)
 
 ## 为什么不用 qiankun?
 
@@ -28,13 +29,13 @@ $ npm i @hexagrams/plugin-ice-stark -S
 Configure in `.umirc.js`,
 
 ```js
-export default {
-  plugins: ["@hexagrams/plugin-ice-stark"],
+import { defineConfig } from 'umi';
+export default defineConfig({
+  plugins: ['@hexagrams/plugin-ice-stark'],
   iceStark: {
     master: {},
-  },
-  },
-};
+  }
+});
 ```
 
 ## 子应用加配置项
@@ -42,12 +43,13 @@ export default {
 Configure in `.umirc.js`,
 
 ```js
-export default {
-  plugins: ["@hexagrams/plugin-ice-stark"],
+import { defineConfig } from 'umi';
+export default defineConfig({
+  plugins: ['@hexagrams/plugin-ice-stark'],
   iceStark: {
-    slave: {},
-  },
-};
+    master: {},
+  }
+});
 ```
 
 ## 父应用动态配置
@@ -55,26 +57,44 @@ export default {
 Configure in `src/app.ts`,
 
 ```js
-// 文档 https://micro-frontends.ice.work/docs/api/ice-stark
-export const iceStark = fetch("/xxx/xxx")
-  .then((res) => res.json())
+// API文档 https://micro-frontends.ice.work/docs/api/ice-stark
+export const iceStark = fetch('/xxx/xxx')
+  .then(res => res.json())
   .then(({ data }) => {
     return {
+      appRouter: {
+        onAppEnter: appConfig => {
+          console.log(appConfig, 'appConfigappConfig');
+        },
+      },
       apps: [
         {
-          appRouter: {
-            onAppEnter: (appConfig) => {
-              console.log(appConfig, "appConfigappConfig");
-            },
-          },
-          publicPath: "/", // 非必填子应用资源路径 https://v3.umijs.org/zh-CN/config#publicpath
-          name: "microApp",
-          activePath: "/seller",
-          url: ["//unpkg.com/icestark-child-common/build/js/index.js"],
+          publicPath: '/', // 非必填子应用资源路径 https://v3.umijs.org/zh-CN/config#publicpath
+          name: 'microApp',
+          activePath: '/seller',
+          url: ['//unpkg.com/icestark-child-common/build/js/index.js'],
         },
       ],
     };
   });
+
+// 或者
+export const iceStark = {
+  appRouter: {
+    onAppEnter: appConfig => {
+      console.log(appConfig, 'appConfigappConfig');
+    },
+  },
+  apps: [
+    {
+      publicPath: '/', // 非必填子应用资源路径 https://v3.umijs.org/zh-CN/config#publicpath
+      name: 'microApp',
+      activePath: '/seller',
+      url: ['//unpkg.com/icestark-child-common/build/js/index.js'],
+    },
+  ],
+};
+
 ```
 
 ## 发布
