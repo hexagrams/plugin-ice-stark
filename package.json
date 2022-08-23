@@ -9,7 +9,10 @@
     "build": "father-build"
   },
   "keywords": ["plugin-ice-stark","微前端","umi","飞冰"],
-  "repository": "https://github.com/hexagrams/plugin-ice-stark",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hexagrams/plugin-ice-stark.git"
+  },
   "authors": {
     "name": "liuiu666",
     "email": "798970799@qq.com"
