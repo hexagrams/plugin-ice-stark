@@ -3,7 +3,7 @@ import { getBasename, getMountNode, registerAppLeave } from "@ice/stark-app";
 import ReactDOM from "react-dom";
 
 setCreateHistoryOptions({
-  routerBase: getBasename(),
+  basename: getBasename(),
   type: window["iceStarkHistoryType"],
 });
 
