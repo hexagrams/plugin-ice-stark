@@ -1,14 +1,20 @@
 {
   "name": "@hexagrams/plugin-ice-stark",
   "author": "liuiu666",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "@ice/stark微前端",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "father-build"
   },
-  "keywords": ["plugin-ice-stark","微前端","umi","飞冰"],
+  "keywords": [
+    "plugin-ice-stark",
+    "微前端",
+    "umi",
+    "飞冰",
+    "ice-stark"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/hexagrams/plugin-ice-stark.git"
@@ -23,9 +29,7 @@
   ],
   "devDependencies": {
     "@umijs/types": "^3.5.32",
-    "father-build": "^1.20.0"
-  },
-  "dependencies": {
+    "father-build": "^1.20.0",
     "@ice/stark": "^2.7.3",
     "@ice/stark-app": "^1.5.0"
   }
