@@ -47,7 +47,7 @@ import { defineConfig } from 'umi';
 export default defineConfig({
   plugins: ['@hexagrams/plugin-ice-stark'],
   iceStark: {
-    master: {},
+    slave: {},
   }
 });
 ```
