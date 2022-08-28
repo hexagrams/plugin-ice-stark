@@ -14,7 +14,6 @@ async function getMasterRuntime() {
     async: true,
   });
   const { master } = config;
-  console.log(masterCfg,'-masterCfg-masterCfg')
   return Object.assign(masterCfg, (master || config));
 }
 
@@ -51,7 +50,6 @@ export function patchRoutes({ routes }) {
 
 export async function render(oldRender) {
   const runtimeOptions = await getMasterRuntime();
-  console.log(runtimeOptions,'-runtimeOptions')
   microAppRuntimeApps = runtimeOptions?.apps;
   appRouterConfog = runtimeOptions?.appRouter;
   oldRender();
