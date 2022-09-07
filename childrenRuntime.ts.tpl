@@ -1,11 +1,16 @@
-import { setCreateHistoryOptions } from "umi";
-import { getBasename, getMountNode, registerAppLeave } from "@ice/stark-app";
-import ReactDOM from "react-dom";
+import { setCreateHistoryOptions } from 'umi';
+import { getBasename, getMountNode, registerAppLeave, registerAppEnter, isInIcestark } from '@ice/stark-app';
+import ReactDOM from 'react-dom';
 
-setCreateHistoryOptions({
-  basename: getBasename(),
-  type: window["iceStarkHistoryType"],
-});
+if (isInIcestark()) {
+  setCreateHistoryOptions({
+    basename: getBasename(),
+    type: window['iceStarkHistoryType'],
+  });
+}
+
+// 防止控制台抱错
+registerAppEnter(() => {});
 
 registerAppLeave(() => {
   ReactDOM.unmountComponentAtNode(getMountNode());
@@ -14,6 +19,6 @@ registerAppLeave(() => {
 export function modifyClientRenderOpts(memo: any) {
   return {
     ...memo,
-    rootElement: getMountNode("root"),
+    rootElement: getMountNode('root'),
   };
 }
