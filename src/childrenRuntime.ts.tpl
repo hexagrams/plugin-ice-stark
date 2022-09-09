@@ -9,12 +9,20 @@ if (isInIcestark()) {
   });
 }
 
-// 防止控制台抱错
-registerAppEnter(() => {});
 
-registerAppLeave(() => {
-  ReactDOM.unmountComponentAtNode(getMountNode());
-});
+export function render(oldRender) {
+  if (isInIcestark()) {
+    registerAppEnter(() => {
+      oldRender();
+    });
+    registerAppLeave(() => {
+      ReactDOM.unmountComponentAtNode(getMountNode());
+    });
+  } else {
+    oldRender();
+  }
+}
+
 
 export function modifyClientRenderOpts(memo: any) {
   return {
