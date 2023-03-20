@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { AppRouter, AppRoute, AppConfig } from "@ice/stark";
-import { AppRouteProps } from "@ice/stark/lib/AppRoute";
+import React from 'react';
+import { AppRouter, AppRoute, AppConfig } from '@ice/stark';
+import { AppRouteProps, CompatibleAppConfig } from '@ice/stark/lib/AppRoute';
 
 const hashType = `{{{hashType}}}`;
 
@@ -10,18 +10,26 @@ interface AppRouteConfig extends AppConfig {
 }
 export interface FatherProps {
   appRouterConfog: AppRouteProps;
-  appRouteConfig: AppRouteConfig;
+  microAppRuntimeApps?: AppRouteConfig[];
 }
+interface CompatibleAppConfigs extends CompatibleAppConfig {
+  publicPath?: string;
+}
+
 export const father = (props: FatherProps) => {
-  const { appRouterConfog, appRouteConfig } = props;
-  useEffect(() => {
-    window["iceStarkHistoryType"] = hashType;
-    window["publicPath"] = appRouteConfig?.publicPath || "/";
-  }, []);
-  appRouteConfig.hashType = hashType;
+  const { appRouterConfog = {}, microAppRuntimeApps } = props;
   return (
-    <AppRouter {...appRouterConfog}>
-      <AppRoute {...appRouteConfig} hashType={hashType === "hash"} props={appRouteConfig}></AppRoute>
+    <AppRouter
+      {...appRouterConfog}
+      onAppEnter={(e: CompatibleAppConfigs) => {
+        window['iceStarkHistoryType'] = hashType;
+        window['publicPath'] = e?.publicPath || '/';
+        appRouterConfog?.onAppEnter?.(e);
+      }}
+    >
+      {microAppRuntimeApps?.map(appRouteConfig => {
+        return <AppRoute {...appRouteConfig} key={appRouteConfig?.name} hashType={hashType === 'hash'} props={appRouteConfig}></AppRoute>;
+      })}
     </AppRouter>
   );
 };
